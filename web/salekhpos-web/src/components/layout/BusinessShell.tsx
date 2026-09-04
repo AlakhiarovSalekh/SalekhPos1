@@ -10,7 +10,7 @@
 import { useTranslation } from 'react-i18next';
 import { config } from '@/app/config/config';
 
-export function BusinessShell(): JSX.Element {
+export function BusinessShell() {
   const { t } = useTranslation();
 
   return (

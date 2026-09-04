@@ -2,6 +2,7 @@
 // Licensed under the proprietary license. See LICENSE in the project root.
 
 using Hellang.Middleware.ProblemDetails;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using SalekhPos.Api.Diagnostics;
@@ -49,19 +50,30 @@ builder.Services
 
 builder.Services.AddProblemDetails(options =>
 {
-    options.IncludeExceptionDetails = builder.Environment.IsDevelopment();
-    options.ShouldLogUnhandledException = (ctx, _, _) => true;
+    // Hellang 6.5.1: both IncludeExceptionDetails and ShouldLogUnhandledException
+    // are predicates (Func<HttpContext, Exception, bool>), not booleans. We
+    // expose stack traces only in Development and always log unhandled
+    // exceptions so they show up in the structured logs.
+    options.IncludeExceptionDetails = (_, _) => builder.Environment.IsDevelopment();
+    options.ShouldLogUnhandledException = (_, _, _) => true;
 });
 
 // --- Health checks ----------------------------------------------------------
 // /health/live: process is up.
 // /health/ready: ready to receive normal traffic (deps later).
+// Note: CA1861 prefers a static readonly array; the live tags array is a
+// single allocation at startup, so we inline here and suppress the rule.
+#pragma warning disable CA1861
 builder.Services.AddHealthChecks()
     .AddCheck("self", () => HealthCheckResult.Healthy("SalekhPos.Api process is up."), tags: new[] { "live" });
+#pragma warning restore CA1861
 
 // --- OpenAPI ----------------------------------------------------------------
+// .NET 8 does not ship built-in AddOpenApi/MapOpenApi; we use
+// AddEndpointsApiExplorer so a future Swashbuckle or NSwag registration
+// picks up the endpoint metadata. The actual UI/JSON endpoint is added
+// in the OpenAPI phase.
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddOpenApi();
 
 // --- Build & pipeline -------------------------------------------------------
 var app = builder.Build();
@@ -82,7 +94,8 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-app.MapOpenApi();
+// MapOpenApi is .NET 9+; the OpenAPI UI endpoint is added in the
+// OpenAPI phase (Swashbuckle/NSwag).
 
 // --- Health endpoints -------------------------------------------------------
 app.MapHealthChecks("/health/live", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions

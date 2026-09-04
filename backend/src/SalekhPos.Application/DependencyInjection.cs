@@ -2,8 +2,6 @@
 // Licensed under the proprietary license. See LICENSE in the project root.
 
 using System.Reflection;
-using FluentValidation;
-using Mapster;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace SalekhPos.Application;
@@ -17,10 +15,10 @@ namespace SalekhPos.Application;
 public static class DependencyInjection
 {
     /// <summary>
-    /// Registers the Application layer services, FluentValidation validators,
-    /// and Mapster mappings. The MediatR-style dispatcher is intentionally
-    /// omitted in the foundation phase; it is added when the first commands
-    /// and queries are introduced in Phase 2+.
+    /// Registers the Application layer services. Concrete registrations
+    /// (FluentValidation validators, Mapster mappings, MediatR-style
+    /// dispatcher) are added in the phase that introduces the first
+    /// command / query / DTO.
     /// </summary>
     /// <param name="services">The service collection to extend.</param>
     /// <returns>The same <paramref name="services"/> for chaining.</returns>
@@ -28,10 +26,11 @@ public static class DependencyInjection
     {
         ArgumentNullException.ThrowIfNull(services);
 
-        services.AddValidatorsFromAssembly(AssemblyMarker.Assembly, includeInternalTypes: false);
-        services.AddSingleton(TypeAdapterConfig.GlobalSettings);
-        services.AddScoped<MapsterMapper.IMapper, MapsterMapper.ServiceMapper>();
-
+        // Foundation only: no application services yet. The first
+        // application services land in Phase 2 (Identity / Auth) where
+        // the password hasher, token service, and user-related use cases
+        // are introduced.
+        _ = AssemblyMarker.Assembly;
         return services;
     }
 }

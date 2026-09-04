@@ -25,7 +25,6 @@ const parsed = envSchema.safeParse({
 });
 
 if (!parsed.success) {
-  // eslint-disable-next-line no-console
   console.error('Invalid web client environment configuration.', parsed.error.format());
   throw new Error('Invalid web client environment configuration.');
 }

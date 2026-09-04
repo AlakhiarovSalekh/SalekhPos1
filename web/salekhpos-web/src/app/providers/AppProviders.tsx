@@ -10,7 +10,7 @@ export interface AppProvidersProps {
   readonly children: ReactNode;
 }
 
-export function AppProviders({ children }: AppProvidersProps): JSX.Element {
+export function AppProviders({ children }: AppProvidersProps) {
   const queryClient = useMemo(
     () =>
       new QueryClient({

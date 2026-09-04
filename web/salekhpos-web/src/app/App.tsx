@@ -7,6 +7,6 @@
  */
 import { BusinessShell } from '@/components/layout/BusinessShell';
 
-export default function App(): JSX.Element {
+export default function App() {
   return <BusinessShell />;
 }

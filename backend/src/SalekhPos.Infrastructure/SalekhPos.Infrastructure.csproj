@@ -11,22 +11,23 @@
     <ProjectReference Include="..\SalekhPos.Application\SalekhPos.Application.csproj" />
   </ItemGroup>
 
+  <!--
+    Foundation-only dependencies. EF Core / Npgsql are wired here so the
+    scaffolding compiles and the next phase can introduce the DbContext.
+    Authentication / Argon2 / OTP / payment / fiscal packages are added
+    in their respective phases (Phase 2+, Phase 16+).
+  -->
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.PostgreSQL" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
     <PackageReference Include="Microsoft.Extensions.Options" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" />
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" />
-    <PackageReference Include="Polly" />
-    <PackageReference Include="Polly.Extensions" />
-    <PackageReference Include="BCrypt.Net-Next" />
-    <PackageReference Include="Konscious.Security.Cryptography.Argon2" />
-    <PackageReference Include="OtpNet" />
   </ItemGroup>
 
   <ItemGroup>
