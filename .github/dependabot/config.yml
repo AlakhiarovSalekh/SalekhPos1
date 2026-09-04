@@ -1,0 +1,80 @@
+# SalekhPos — Dependabot configuration.
+# Keeps .NET, npm, Docker, and GitHub Actions dependencies current.
+# Grouped updates reduce noise; security updates open immediately.
+version: 2
+updates:
+  - package-ecosystem: nuget
+    directory: /backend
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 10
+    groups:
+      dotnet:
+        patterns:
+          - Microsoft.*
+          - Npgsql.*
+          - Serilog.*
+          - Polly.*
+          - FluentValidation.*
+          - Mapster.*
+          - OpenTelemetry.*
+          - xunit.*
+          - Testcontainers.*
+          - Bogus.*
+    commit-message:
+      prefix: build(deps)
+      prefix-development: build(deps)
+
+  - package-ecosystem: npm
+    directory: /web/salekhpos-web
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 10
+    groups:
+      react:
+        patterns:
+          - react
+          - react-dom
+          - react-router-dom
+          - "@tanstack/react-query"
+      eslint:
+        patterns:
+          - eslint
+          - "@typescript-eslint/*"
+          - eslint-plugin-*
+      test:
+        patterns:
+          - vitest
+          - "@vitest/*"
+          - "@testing-library/*"
+          - "@playwright/test"
+          - jsdom
+          - axe-core
+          - "@axe-core/*"
+      vite:
+        patterns:
+          - vite
+          - "@vitejs/*"
+    commit-message:
+      prefix: build(deps)
+      prefix-development: build(deps)
+
+  - package-ecosystem: docker
+    directory: /infrastructure/docker
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: build(deps)
+      prefix-development: build(deps)
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: ci(deps)
+      prefix-development: ci(deps)

@@ -1,0 +1,54 @@
+/* SalekhPos web — global stylesheet baseline.
+ * A real design system (tokens, components) is introduced in a later phase.
+ * This file resets the basics and sets a sensible starting palette. */
+
+:root {
+  --sp-bg: #0b1220;
+  --sp-bg-elevated: #111a2e;
+  --sp-fg: #e2e8f0;
+  --sp-fg-muted: #94a3b8;
+  --sp-border: #1e293b;
+  --sp-accent: #2563eb;
+  --sp-danger: #dc2626;
+  --sp-success: #16a34a;
+  --sp-warning: #d97706;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: var(--sp-bg);
+  color: var(--sp-fg);
+}
+
+a {
+  color: var(--sp-accent);
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--sp-accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

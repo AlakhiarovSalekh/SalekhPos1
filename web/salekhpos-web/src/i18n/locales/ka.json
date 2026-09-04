@@ -1,0 +1,66 @@
+{
+  "app": {
+    "name": "SalekhPos",
+    "tagline": "მრავალჯერადი საცალო გაყიდვების პლატფორმა"
+  },
+  "common": {
+    "loading": "იტვირთება…",
+    "empty": "ჯერ არაფერია საჩვენებელი.",
+    "error": "რაღაც შეცდომა მოხდა. გთხოვთ, სცადოთ თავიდან.",
+    "retry": "თავიდან ცდა",
+    "cancel": "გაუქმება",
+    "confirm": "დადასტურება",
+    "save": "შენახვა",
+    "create": "შექმნა",
+    "update": "განახლება",
+    "delete": "წაშლა",
+    "search": "ძებნა",
+    "actions": "ქმედებები",
+    "yes": "დიახ",
+    "no": "არა"
+  },
+  "shell": {
+    "header": {
+      "title": "SalekhPos",
+      "businessSelector": "ბიზნესის არჩევა",
+      "storeSelector": "მაღაზიის არჩევა",
+      "globalSearch": "ძებნა პროდუქტებში, მომხმარებლებში, მომწოდებლებში…",
+      "notifications": "შეტყობინებები",
+      "help": "დახმარება",
+      "profile": "პროფილი"
+    },
+    "sidebar": {
+      "dashboard": "მთავარი",
+      "products": "პროდუქტები",
+      "inventory": "მარაგი",
+      "purchases": "შესყიდვები",
+      "suppliers": "მომწოდებლები",
+      "customers": "მომხმარებლები",
+      "employees": "თანამშრომლები",
+      "cashRegisters": "სალაროები",
+      "expenses": "ხარჯები",
+      "reports": "ანგარიშები",
+      "notifications": "შეტყობინებები",
+      "settings": "პარამეტრები",
+      "platformAdmin": "პლატფორმის ადმინისტრირება"
+    }
+  },
+  "dashboard": {
+    "title": "მთავარი",
+    "todaySales": "დღევანდელი გაყიდვები",
+    "revenue": "შემოსავალი",
+    "profit": "მოგება",
+    "orders": "შეკვეთები",
+    "expenses": "ხარჯები",
+    "lowStock": "დაბალი მარაგი",
+    "openRegisters": "ღია სალაროები",
+    "topProducts": "ტოპ პროდუქტები"
+  },
+  "states": {
+    "loading": "იტვირთება…",
+    "empty": "ჯერ არაფერია საჩვენებელი.",
+    "error": "მონაცემების ჩატვირთვა ვერ მოხერხდა.",
+    "offline": "თქვენ ხაზგარეშე ხართ.",
+    "permissionDenied": "ამ გვერდის ნახვის უფლება არ გაქვთ."
+  }
+}

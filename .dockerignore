@@ -1,0 +1,60 @@
+# SalekhPos — root .dockerignore
+# The backend and web Dockerfiles use the repo root as the build context.
+
+# Build artefacts
+**/bin
+**/obj
+**/out
+**/dist
+**/node_modules
+**/.vite
+**/.cache
+**/.parcel-cache
+**/.next
+**/.nuxt
+**/.svelte-kit
+
+# Test / coverage
+**/TestResults
+**/coverage
+**/playwright-report
+**/test-results
+
+# Logs / runtime
+**/*.log
+**/logs
+**/.eslintcache
+**/.prettiercache
+**/tsconfig.tsbuildinfo
+**/*.tsbuildinfo
+
+# Secrets — never copy
+**/.env
+**/.env.*
+**/secrets/
+**/*.pem
+**/*.key
+**/*.pfx
+**/appsettings.*.local.json
+**/appsettings.Development.local.json
+**/webhook-secrets.*
+**/jwt-*
+**/*.secret
+
+# IDE / OS
+**/.vs
+**/.vscode
+**/.idea
+**/.cursor
+**/.copilot
+**/.aider*
+**/.DS_Store
+**/Thumbs.db
+**/desktop.ini
+
+# Documentation that doesn't belong in an image
+**/docs/
+**/README.md
+**/CONTRIBUTING.md
+**/CHANGELOG.md
+**/LICENSE

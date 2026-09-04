@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>SalekhPos.Application</RootNamespace>
+    <AssemblyName>SalekhPos.Application</AssemblyName>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SalekhPos.Domain\SalekhPos.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" />
+    <PackageReference Include="Mapster" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Options" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="SalekhPos.Infrastructure" />
+    <InternalsVisibleTo Include="SalekhPos.Api" />
+    <InternalsVisibleTo Include="SalekhPos.Worker" />
+    <InternalsVisibleTo Include="SalekhPos.Tests" />
+  </ItemGroup>
+
+</Project>

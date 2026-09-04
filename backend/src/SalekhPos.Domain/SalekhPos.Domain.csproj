@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>SalekhPos.Domain</RootNamespace>
+    <AssemblyName>SalekhPos.Domain</AssemblyName>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <!--
+    Domain has no project-internal dependencies and no infrastructure dependencies.
+    No EF Core, no ASP.NET Core, no vendor SDKs.
+  -->
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="SalekhPos.Application" />
+    <InternalsVisibleTo Include="SalekhPos.Infrastructure" />
+    <InternalsVisibleTo Include="SalekhPos.Tests" />
+  </ItemGroup>
+
+</Project>

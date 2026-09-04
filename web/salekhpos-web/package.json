@@ -1,0 +1,60 @@
+{
+  "name": "salekhpos-web",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "SalekhPos web application — owner / manager administration",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 4173",
+    "lint": "eslint . --max-warnings=0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "test:a11y": "playwright test --grep @a11y"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.27.0",
+    "@tanstack/react-query": "^5.59.16",
+    "axios": "^1.7.7",
+    "zod": "^3.23.8",
+    "react-hook-form": "^7.53.1",
+    "@hookform/resolvers": "^3.9.1",
+    "i18next": "^23.16.4",
+    "react-i18next": "^15.1.0",
+    "@microsoft/signalr": "^8.0.7",
+    "clsx": "^2.1.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@types/node": "^20.16.13",
+    "@vitejs/plugin-react": "^4.3.3",
+    "vite": "^5.4.10",
+    "typescript": "^5.6.3",
+    "eslint": "^9.13.0",
+    "@typescript-eslint/eslint-plugin": "^8.11.0",
+    "@typescript-eslint/parser": "^8.11.0",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-refresh": "^0.4.14",
+    "prettier": "^3.3.3",
+    "vitest": "^2.1.4",
+    "@testing-library/react": "^16.0.1",
+    "@testing-library/jest-dom": "^6.6.2",
+    "@testing-library/user-event": "^14.5.2",
+    "@vitest/coverage-v8": "^2.1.4",
+    "jsdom": "^25.0.1",
+    "@playwright/test": "^1.48.1",
+    "axe-core": "^4.10.0",
+    "@axe-core/playwright": "^4.10.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

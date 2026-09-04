@@ -1,0 +1,38 @@
+# SalekhPos — local Caddy reverse proxy.
+# Production uses a hardened reverse proxy with real certificates and WAF.
+{
+    admin off
+    auto_https off
+}
+
+:8080 {
+    # SPA + static assets
+    reverse_proxy web:80
+
+    # API
+    reverse_proxy /api/* backend:8080
+
+    # SignalR
+    reverse_proxy /hubs/* backend:8080
+
+    # Health endpoints exposed for orchestrators
+    reverse_proxy /health/* backend:8080
+
+    encode gzip zstd
+
+    log {
+        output stdout
+        format console
+    }
+}
+
+# HTTPS listener is wired in production deployments. The dev compose
+# serves plain HTTP on :8080 and reserves :8443 for TLS.
+:8443 {
+    tls internal
+    reverse_proxy web:80
+    reverse_proxy /api/* backend:8080
+    reverse_proxy /hubs/* backend:8080
+    reverse_proxy /health/* backend:8080
+    encode gzip zstd
+}

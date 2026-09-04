@@ -1,0 +1,162 @@
+# SalekhPos — local development compose file.
+# Per the constitution, this is for local development only; production
+# uses versioned images, a private network, and a managed reverse proxy.
+
+name: salekhpos
+
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "5"
+
+services:
+  postgres:
+    image: postgres:16.4-alpine
+    container_name: salekhpos-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-salekhpos}
+      POSTGRES_USER: ${POSTGRES_USER:-salekhpos}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set}
+      # Force sensible defaults for a development environment.
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${POSTGRES_USER:-salekhpos} -d ${POSTGRES_DB:-salekhpos}",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    networks:
+      - internal
+    logging: *default-logging
+    # Postgres is internal-only. No published ports by design.
+
+  redis:
+    image: redis:7.4-alpine
+    container_name: salekhpos-redis
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes", "--maxmemory-policy", "noeviction"]
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    networks:
+      - internal
+    logging: *default-logging
+    # Redis is internal-only. No published ports by design.
+
+  backend:
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.backend
+      target: runtime
+      args:
+        BUILD_CONFIGURATION: Debug
+    image: salekhpos/backend:dev
+    container_name: salekhpos-backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+      DOTNET_ENVIRONMENT: Development
+      DATABASE_URL: ${DATABASE_URL:-Host=postgres;Port=5432;Database=salekhpos;Username=salekhpos;Password=${POSTGRES_PASSWORD}}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      JWT_SIGNING_KEY: ${JWT_SIGNING_KEY:-dev-only-secret-do-not-use-in-prod}
+      JWT_ISSUER: ${JWT_ISSUER:-salekhpos.local}
+      JWT_AUDIENCE: ${JWT_AUDIENCE:-salekhpos.api}
+      WEB_ORIGIN: ${WEB_ORIGIN:-http://localhost:5173}
+    networks:
+      - internal
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8080/health/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    logging: *default-logging
+    # The reverse proxy is the only public surface. Backend is not published.
+
+  worker:
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.worker
+      target: runtime
+      args:
+        BUILD_CONFIGURATION: Debug
+    image: salekhpos/worker:dev
+    container_name: salekhpos-worker
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      DOTNET_ENVIRONMENT: Development
+      DATABASE_URL: ${DATABASE_URL:-Host=postgres;Port=5432;Database=salekhpos;Username=salekhpos;Password=${POSTGRES_PASSWORD}}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    networks:
+      - internal
+    logging: *default-logging
+
+  web:
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.web
+      target: runtime
+    image: salekhpos/web:dev
+    container_name: salekhpos-web
+    restart: unless-stopped
+    networks:
+      - edge
+    logging: *default-logging
+
+  caddy:
+    image: caddy:2.8-alpine
+    container_name: salekhpos-caddy
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_started
+      web:
+        condition: service_started
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - edge
+      - internal
+    logging: *default-logging
+
+networks:
+  edge:
+    name: salekhpos_edge
+  internal:
+    name: salekhpos_internal
+    internal: true   # No outbound internet. Backend/worker/DB are private.
+
+volumes:
+  postgres_data:
+  redis_data:
+  caddy_data:
+  caddy_config:

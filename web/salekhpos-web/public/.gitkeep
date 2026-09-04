@@ -1,0 +1,4 @@
+# SalekhPos Web — Vite static assets
+
+Files in this directory are served at the root of the web app (e.g. `/favicon.svg`).
+Do not place secrets here.

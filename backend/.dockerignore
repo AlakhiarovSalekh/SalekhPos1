@@ -1,0 +1,44 @@
+# Build artefacts
+**/bin
+**/obj
+**/out
+**/dist
+**/node_modules
+**/.vite
+**/.cache
+**/.parcel-cache
+**/.next
+**/.nuxt
+**/.svelte-kit
+
+# Test / coverage
+**/TestResults
+**/coverage
+**/playwright-report
+**/test-results
+
+# Logs / runtime
+**/*.log
+**/logs
+
+# Secrets — never copy
+**/.env
+**/.env.*
+**/secrets/
+**/*.pem
+**/*.key
+**/*.pfx
+**/appsettings.*.local.json
+
+# IDE
+**/.vs
+**/.vscode
+**/.idea
+**/.cursor
+**/.copilot
+**/.aider*
+
+# OS
+**/.DS_Store
+**/Thumbs.db
+**/desktop.ini

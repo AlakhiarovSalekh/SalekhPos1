@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>SalekhPos.Infrastructure</RootNamespace>
+    <AssemblyName>SalekhPos.Infrastructure</AssemblyName>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SalekhPos.Domain\SalekhPos.Domain.csproj" />
+    <ProjectReference Include="..\SalekhPos.Application\SalekhPos.Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.PostgreSQL" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Options" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" />
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" />
+    <PackageReference Include="Polly" />
+    <PackageReference Include="Polly.Extensions" />
+    <PackageReference Include="BCrypt.Net-Next" />
+    <PackageReference Include="Konscious.Security.Cryptography.Argon2" />
+    <PackageReference Include="OtpNet" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="SalekhPos.Api" />
+    <InternalsVisibleTo Include="SalekhPos.Worker" />
+    <InternalsVisibleTo Include="SalekhPos.Tests" />
+  </ItemGroup>
+
+</Project>

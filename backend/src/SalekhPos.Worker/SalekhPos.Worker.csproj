@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <RootNamespace>SalekhPos.Worker</RootNamespace>
+    <AssemblyName>SalekhPos.Worker</AssemblyName>
+    <IsPackable>false</IsPackable>
+    <UserSecretsId>salekhpos-worker-dev-secrets</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SalekhPos.Application\SalekhPos.Application.csproj" />
+    <ProjectReference Include="..\SalekhPos.Infrastructure\SalekhPos.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" />
+    <PackageReference Include="Serilog.AspNetCore" />
+    <PackageReference Include="Serilog.Sinks.Console" />
+    <PackageReference Include="Serilog.Settings.Configuration" />
+    <PackageReference Include="OpenTelemetry" />
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting" />
+    <PackageReference Include="OpenTelemetry.Exporter.Console" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,66 @@
+{
+  "app": {
+    "name": "SalekhPos",
+    "tagline": "Çoxmənzilli pərakəndə satış platforması"
+  },
+  "common": {
+    "loading": "Yüklənir…",
+    "empty": "Hələ göstəriləcək heç nə yoxdur.",
+    "error": "Xəta baş verdi. Zəhmət olmasa yenidən cəhd edin.",
+    "retry": "Yenidən cəhd et",
+    "cancel": "Ləğv et",
+    "confirm": "Təsdiqlə",
+    "save": "Saxla",
+    "create": "Yarat",
+    "update": "Yenilə",
+    "delete": "Sil",
+    "search": "Axtar",
+    "actions": "Əməliyyatlar",
+    "yes": "Bəli",
+    "no": "Xeyr"
+  },
+  "shell": {
+    "header": {
+      "title": "SalekhPos",
+      "businessSelector": "Biznes seç",
+      "storeSelector": "Mağaza seç",
+      "globalSearch": "Məhsullar, müştərilər, tədarükçülər arasında axtar…",
+      "notifications": "Bildirişlər",
+      "help": "Kömək",
+      "profile": "Profil"
+    },
+    "sidebar": {
+      "dashboard": "Əsas səhifə",
+      "products": "Məhsullar",
+      "inventory": "Anbar",
+      "purchases": "Alışlar",
+      "suppliers": "Tədarükçülər",
+      "customers": "Müştərilər",
+      "employees": "İşçilər",
+      "cashRegisters": "Kassalar",
+      "expenses": "Xərclər",
+      "reports": "Hesabatlar",
+      "notifications": "Bildirişlər",
+      "settings": "Parametrlər",
+      "platformAdmin": "Platforma administrasiyası"
+    }
+  },
+  "dashboard": {
+    "title": "Əsas səhifə",
+    "todaySales": "Bu günün satışları",
+    "revenue": "Gəlir",
+    "profit": "Mənfəət",
+    "orders": "Sifarişlər",
+    "expenses": "Xərclər",
+    "lowStock": "Aşağı stok",
+    "openRegisters": "Açıq kassalar",
+    "topProducts": "Top məhsullar"
+  },
+  "states": {
+    "loading": "Yüklənir…",
+    "empty": "Hələ göstəriləcək heç nə yoxdur.",
+    "error": "Məlumat yüklənə bilmədi.",
+    "offline": "Siz oflaynsınız.",
+    "permissionDenied": "Bu səhifəyə baxmaq icazəniz yoxdur."
+  }
+}

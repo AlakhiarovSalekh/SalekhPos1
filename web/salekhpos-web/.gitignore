@@ -1,0 +1,32 @@
+# Local
+node_modules
+dist
+dist-ssr
+.local
+.vite
+.cache
+.parcel-cache
+.eslintcache
+.prettiercache
+coverage
+playwright-report
+test-results
+.turbo
+*.log
+*.local
+
+# Editors
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Env
+.env
+.env.*
+!.env.example

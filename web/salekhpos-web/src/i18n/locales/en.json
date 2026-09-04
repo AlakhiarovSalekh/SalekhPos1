@@ -1,0 +1,66 @@
+{
+  "app": {
+    "name": "SalekhPos",
+    "tagline": "Multi-tenant retail Point-of-Sale"
+  },
+  "common": {
+    "loading": "Loading…",
+    "empty": "Nothing to show yet.",
+    "error": "Something went wrong. Please try again.",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "create": "Create",
+    "update": "Update",
+    "delete": "Delete",
+    "search": "Search",
+    "actions": "Actions",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "shell": {
+    "header": {
+      "title": "SalekhPos",
+      "businessSelector": "Select business",
+      "storeSelector": "Select store",
+      "globalSearch": "Search products, customers, suppliers…",
+      "notifications": "Notifications",
+      "help": "Help",
+      "profile": "Profile"
+    },
+    "sidebar": {
+      "dashboard": "Dashboard",
+      "products": "Products",
+      "inventory": "Inventory",
+      "purchases": "Purchases",
+      "suppliers": "Suppliers",
+      "customers": "Customers",
+      "employees": "Employees",
+      "cashRegisters": "Cash registers",
+      "expenses": "Expenses",
+      "reports": "Reports",
+      "notifications": "Notifications",
+      "settings": "Settings",
+      "platformAdmin": "Platform administration"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "todaySales": "Today's sales",
+    "revenue": "Revenue",
+    "profit": "Profit",
+    "orders": "Orders",
+    "expenses": "Expenses",
+    "lowStock": "Low stock",
+    "openRegisters": "Open registers",
+    "topProducts": "Top products"
+  },
+  "states": {
+    "loading": "Loading…",
+    "empty": "Nothing to show yet.",
+    "error": "Could not load data.",
+    "offline": "You are offline.",
+    "permissionDenied": "You do not have permission to view this."
+  }
+}
