@@ -1,5 +1,5 @@
 # SalekhPos scripts
 
-Helper scripts for local development and maintenance.
-
-This folder is intentionally small in the foundation scaffold. Scripts are added per phase with their usage notes.
+| Script | What it does |
+|---|---|
+| `setup.ps1` | Installs the local development toolchain on Windows (PowerShell): .NET 8 SDK, Node.js, Docker Desktop, GitHub CLI. Idempotent. |
