@@ -6,10 +6,10 @@
 
 | Field | Value |
 |---|---|
-| Current phase | **Phase 1 — Infrastructure** (foundation work for Phase 0/1 merged at scaffold time) |
-| Phases complete | Phase 0 (foundation, docs, ADRs, status doc) and partial Phase 1 (solution/web/docker/CI scaffolds) |
-| Phases in progress | Phase 1 (CI gate, real builds, real tests) |
-| Last verified commit | `4cad227` on `main` of the local `SalekhPos/` repository |
+| Current phase | **Phase 1 — Infrastructure** (real builds verified on .NET 8) |
+| Phases complete | Phase 0 (foundation, docs, ADRs, status doc); Phase 1 scaffold (solution/web/docker/CI); Phase 1 build verification on .NET 8 SDK 8.0.424 |
+| Phases in progress | Phase 1 (CI gate) |
+| Last verified commit | `b4ea603` on `main` of `AlakhiarovSalekh/SalekhPos` |
 | Next phase | Phase 2 — Identity / Authentication |
 
 ## Phase progress
@@ -17,7 +17,7 @@
 | # | Phase | State | Notes |
 |---|---|---|---|
 | 0 | Foundation | **done** | README, CONTRIBUTING, CHANGELOG, LICENSE, .gitignore, .editorconfig, docs/, ADRs, IMPLEMENTATION_STATUS.md, top-level folders. |
-| 1 | Infrastructure | **partial** | .NET 8 solution scaffold (5 projects), React/TS/Vite web scaffold, Docker compose + Dockerfiles, CI workflow. Health endpoints stubbed. **Not yet compiled** — see "Toolchain gaps". |
+| 1 | Infrastructure | **partial** | .NET 8 solution scaffold (5 projects), React/TS/Vite web scaffold, Docker compose + Dockerfiles, CI workflow. Health endpoints stubbed. **Compiles on .NET 8 SDK 8.0.424**: `dotnet build` 0 warnings / 0 errors, `dotnet test` 4/4 passed, `npm run build` clean (Vite 5, 111 modules). Pending: full CI green, Postgres+Redis via Docker, OpenAPI/Swagger registration. |
 | 2 | Identity / Auth | pending | Argon2id, password policy, email verification, password reset, access/refresh tokens, rotation, revocation, reuse detection, MFA/TOTP architecture, rate limiting, brute-force protection. |
 | 3 | Multi-tenancy | pending | tenants, stores, memberships, roles, permissions, store access, tenant isolation tests. |
 | 4 | Catalog | pending | categories, brands, units, products, variants, barcodes, prices, taxes. |
@@ -68,8 +68,8 @@
 
 The following were **not present** on the machine that produced this scaffold:
 
-- **.NET 8 SDK** — `dotnet` is on disk but `dotnet --list-sdks` reports no installed SDK. Source files compile in `dotnet new`-generated structure, but the user must install the SDK to actually build.
-- **Docker / Docker Desktop** — no `docker` binary found. The `docker-compose.yml` is provided for use when Docker is available.
+- **.NET 8 SDK** — RESOLVED. `dotnet --list-sdks` reports `8.0.424`. The solution builds and tests pass on the user's machine.
+- **Docker / Docker Desktop** — Installed at `C:\Program Files\Docker\Docker\resources\bin\docker` (not on the bash PATH by default; PowerShell or full path works). `docker compose` is available. The dev `docker-compose.yml` can be brought up.
 - **PostgreSQL / psql client** — not installed locally; not required because the dev environment provides PostgreSQL through Docker.
 
 Node.js 24.18.0 and npm 11.16.0 are installed.
@@ -112,7 +112,7 @@ Node.js 24.18.0 and npm 11.16.0 are installed.
 
 ## Last verified commit
 
-- `4cad227` — `chore(repo): initial SalekhPos foundation (Phase 0 + Phase 1 scaffold)`. 150 files, 4,455 insertions. Branch `main`, working tree clean. The `origin` remote from the unrelated home repository is not present here; only the placeholder `salekhpos` remote was added. **The home repository was not modified.**
+- `b4ea603` — `fix(build): make Phase 1 scaffold actually compile on .NET 8`. 18 files, 6,059 insertions, 99 deletions. Resolves the Hellang ProblemDetails 6.5.1 predicate signature, removes the .NET 9-only `AddOpenApi`/`MapOpenApi` calls, migrates ESLint to flat config, drops `JSX.Element` return-type annotations on entry components, pins the right packages in `Directory.Packages.props`, and extends architecture-boundary tests. **Verified on .NET SDK 8.0.424: build 0/0, tests 4/4, Vite build clean.** Pushed to `AlakhiarovSalekh/SalekhPos` (remote `salekhpos`).
 
 ## Next phase
 
