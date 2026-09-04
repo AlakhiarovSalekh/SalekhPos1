@@ -64,6 +64,11 @@
     <PackageVersion Include="Polly" Version="8.4.2" />
     <PackageVersion Include="Polly.Extensions" Version="8.4.2" />
 
+    <!-- Phase 2 — Identity / Auth crypto -->
+    <PackageVersion Include="Isopoh.Cryptography.Argon2" Version="2.0.0" />
+    <PackageVersion Include="Otp.NET" Version="1.4.1" />
+    <PackageVersion Include="BouncyCastle.Cryptography" Version="2.7.0" />
+
     <!-- Caching -->
     <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.10" />
 
