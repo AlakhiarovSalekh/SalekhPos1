@@ -1,35 +1,68 @@
 // Copyright (c) SalekhPos contributors. All rights reserved.
 // Licensed under the proprietary license. See LICENSE in the project root.
 
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SalekhPos.Application.Abstractions;
+using SalekhPos.Application.Abstractions.Persistence;
+using SalekhPos.Application.Identity;
+using SalekhPos.Infrastructure.Persistence;
+using SalekhPos.Infrastructure.Persistence.Repositories;
+using SalekhPos.Infrastructure.Security;
 
 namespace SalekhPos.Infrastructure;
 
 /// <summary>
-/// Composition-root extensions for the Infrastructure layer. The exact
-/// registrations (DbContext, Redis, payment adapters, fiscal adapters, etc.)
-/// are added incrementally per phase; this file is the single entry point
-/// Api and Worker use.
+/// Composition root for the Infrastructure layer.
 /// </summary>
 public static class DependencyInjection
 {
     /// <summary>
-    /// Registers infrastructure services. Currently a placeholder; concrete
-    /// registrations (PostgreSQL, Redis, providers) land in their respective
-    /// phases (Phase 1: PostgreSQL/Redis/health; Phase 16: integrations).
+    /// Registers infrastructure services: the EF Core DbContext, all
+    /// repositories, the unit of work, the security primitives
+    /// (Argon2id password hasher, EdDSA JWT signer, TOTP service,
+    /// AES-GCM cipher, opaque token generator, system clock, logging
+    /// email sender), and the configuration option classes used by the
+    /// Application layer's use cases.
     /// </summary>
-    /// <param name="services">The service collection to extend.</param>
-    /// <param name="configuration">The application configuration.</param>
-    /// <returns>The same <paramref name="services"/> for chaining.</returns>
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         ArgumentNullException.ThrowIfNull(services);
         ArgumentNullException.ThrowIfNull(configuration);
 
-        // Phase 1 deliberately does not bind DbContext / Redis here yet.
-        // Those land when EF Core mappings and Redis usage are introduced.
-        // Health checks for PostgreSQL/Redis are added in the same change set.
+        // Configuration options.
+        services.Configure<AuthLockoutOptions>(configuration.GetSection(AuthLockoutOptions.SectionName));
+        services.Configure<TokenLifetimeOptions>(configuration.GetSection(TokenLifetimeOptions.SectionName));
+        services.Configure<JwtIssuerOptions>(configuration.GetSection(JwtIssuerOptions.SectionName));
+        services.Configure<JwtSigningKeyOptions>(configuration.GetSection(JwtSigningKeyOptions.SectionName));
+        services.Configure<DataProtectionOptions>(configuration.GetSection(DataProtectionOptions.SectionName));
+
+        // EF Core (PostgreSQL).
+        var connectionString = configuration.GetConnectionString("Postgres")
+            ?? throw new InvalidOperationException("ConnectionStrings:Postgres is not configured.");
+        services.AddDbContext<SalekhPosDbContext>(opts => opts.UseNpgsql(
+            connectionString,
+            npg => npg.MigrationsAssembly(typeof(SalekhPosDbContext).Assembly.GetName().Name)));
+
+        // Unit of work + repositories.
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<ITenantRepository, TenantRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+        services.AddScoped<IEmailVerificationTokenRepository, EmailVerificationTokenRepository>();
+        services.AddScoped<IPasswordResetTokenRepository, PasswordResetTokenRepository>();
+        services.AddScoped<IMfaFactorRepository, MfaFactorRepository>();
+        services.AddScoped<IMfaRecoveryCodeRepository, MfaRecoveryCodeRepository>();
+
+        // Security services.
+        services.AddSingleton<IClock, SystemClock>();
+        services.AddSingleton<ITokenGenerator, OpaqueTokenGenerator>();
+        services.AddSingleton<IPasswordHasher, Argon2PasswordHasher>();
+        services.AddSingleton<ITotpService, OtpNetTotpService>();
+        services.AddSingleton<IAesGcmCipher, AesGcmCipher>();
+        services.AddSingleton<IJwtSigner, Ed25519JwtSigner>();
+        services.AddSingleton<IEmailSender, LoggingEmailSender>();
 
         return services;
     }
