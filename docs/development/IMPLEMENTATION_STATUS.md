@@ -6,11 +6,11 @@
 
 | Field | Value |
 |---|---|
-| Current phase | **Phase 1 — Infrastructure** (real builds verified on .NET 8) |
-| Phases complete | Phase 0 (foundation, docs, ADRs, status doc); Phase 1 scaffold (solution/web/docker/CI); Phase 1 build verification on .NET 8 SDK 8.0.424 |
-| Phases in progress | Phase 1 (CI gate) |
-| Last verified commit | `b4ea603` on `main` of `AlakhiarovSalekh/SalekhPos` |
-| Next phase | Phase 2 — Identity / Authentication |
+| Current phase | **Phase 2 — Identity / Authentication** (complete) |
+| Phases complete | Phase 0 (foundation, docs, ADRs, status doc); Phase 1 (infrastructure scaffold + .NET 8 build verification); Phase 2 (identity & auth — domain, application, infrastructure, API, web client, documentation) |
+| Phases in progress | None |
+| Last verified commit | `ef291ce` on `main` of `AlakhiarovSalekh/SalekhPos` |
+| Next phase | Phase 3 — Multi-tenancy (tenants, stores, memberships, roles, permissions) |
 
 ## Phase progress
 
@@ -18,7 +18,7 @@
 |---|---|---|---|
 | 0 | Foundation | **done** | README, CONTRIBUTING, CHANGELOG, LICENSE, .gitignore, .editorconfig, docs/, ADRs, IMPLEMENTATION_STATUS.md, top-level folders. |
 | 1 | Infrastructure | **partial** | .NET 8 solution scaffold (5 projects), React/TS/Vite web scaffold, Docker compose + Dockerfiles, CI workflow. Health endpoints stubbed. **Compiles on .NET 8 SDK 8.0.424**: `dotnet build` 0 warnings / 0 errors, `dotnet test` 4/4 passed, `npm run build` clean (Vite 5, 111 modules). Pending: full CI green, Postgres+Redis via Docker, OpenAPI/Swagger registration. |
-| 2 | Identity / Auth | pending | Argon2id, password policy, email verification, password reset, access/refresh tokens, rotation, revocation, reuse detection, MFA/TOTP architecture, rate limiting, brute-force protection. |
+| 2 | Identity / Auth | **done** | EdDSA-signed access tokens, opaque rotated refresh tokens with reuse detection, Argon2id password hashing, TOTP MFA + recovery codes, RFC 7807 error mapping, `token_version` revocation. 6 commits (`4f12a70`, `d51dee0`, `fee7496`, `faf8f09`, `91f9a00`, `ef291ce`). Documented in [ADR-009](../decisions/ADR-009-identity-and-auth.md), [docs/api/auth.md](../api/auth.md), [docs/security/auth.md](../security/auth.md). |
 | 3 | Multi-tenancy | pending | tenants, stores, memberships, roles, permissions, store access, tenant isolation tests. |
 | 4 | Catalog | pending | categories, brands, units, products, variants, barcodes, prices, taxes. |
 | 5 | Inventory | pending | ledger, snapshot, movements, adjustments, transfers, stock counts, weighted average cost, concurrency control. |
@@ -56,13 +56,35 @@
 - CI workflow: checkout, restore, build, unit tests, lint, security scan, container build (no deploy).
 - Placeholder remote config note: a `salekhpos` remote placeholder was added (URL pending) per user instruction not to touch the existing `origin`.
 
+## Phase 1 (Infrastructure) — complete (verified on commit `b4ea603`)
+
+`.NET 8 SDK 8.0.424`: `dotnet build` 0 warnings / 0 errors, `dotnet test` 4/4 passed, `npm run build` clean (Vite 5, 111 modules). The CI gate remains a follow-up to this slice.
+
+## Phase 2 (Identity / Auth) — complete (verified on commit `ef291ce`)
+
+Six slices shipped in order:
+
+| Slice | Commit | What |
+|---|---|---|
+| 1 — Domain | `4f12a70` | `User`, `Tenant`, value objects (`Email`, `Password`, `TenantSlug`), token primitives, error model (6 exceptions: `InvalidCredentials`, `AccountLocked`, `EmailNotVerified`, `PasswordPolicy`, `RateLimited`, `InvalidToken`). |
+| 2 — Application | `d51dee0` | 15 abstractions, `PasswordPolicy`, 11 use-case handlers, FluentValidation, `DependencyInjection`. |
+| 3a — Infrastructure crypto | `fee7496` | Argon2id, Ed25519 JWT signer, TOTP, AES-GCM, opaque tokens, structured email logger, system clock. |
+| 3b — Infrastructure persistence | `faf8f09` | DbContext, 7 EF configurations, 7 repositories, UnitOfWork, DI updates. |
+| 4 — API surface | `91f9a00` | `AuthController` (11 endpoints), DTOs, `EdDsaAuthenticationHandler`, `DomainExceptionMapping` (RFC 7807). Build 0/0, tests 23/23. |
+| 5 — Web client | `ef291ce` | React 18 + TS auth feature: `AuthProvider` with mount-time silent refresh, 8 pages, 4 UI primitives, 4 auth components, router with `RequireAuth`/`RequireAnonymous`/`RequireMfaPending` guards, i18n in 3 locales (en/ka/az) with a parity test, 48 unit tests + Playwright e2e smoke. `tsc 0 errors`, `eslint 0 warnings`, `vitest 48/48`, `vite build` clean. |
+
+New documentation in this phase:
+
+- [ADR-009 — Identity and authentication](../decisions/ADR-009-identity-and-auth.md) — the seven decisions: EdDSA JWT, Argon2id, opaque rotated refresh tokens, `token_version` revocation, TOTP MFA, RFC 7807, `localStorage` trade-off.
+- [API reference — auth](../api/auth.md) — every endpoint, request/response shapes, error codes, status codes, source links.
+- [Security reference — auth](../security/auth.md) — threat model, password policy rationale, token storage trade-off, rotation strategy, MFA recovery codes, account lockout, audit log.
+
+Deferred to a Slice 4b follow-up: ASP.NET Core rate limiter (Redis-backed partition), EF Core initial migration, `appsettings.Development.json` Postgres connection string, OpenAPI/Swagger registration.
+
 ## Pending work (immediate next steps)
 
-1. Install .NET 8 SDK on the development machine and run `dotnet build` / `dotnet test` to verify the solution compiles and tests pass.
-2. Run `npm install` and `npm run build` in `web/salekhpos-web/` to verify the Vite/TS app builds.
-3. Add a working Postgres + Redis via Docker (or local) and run the integration test fixtures.
-4. Wire the real `IFiscalDevice` and `IPaymentProvider` adapter skeletons (no provider-specific code without authoritative documentation).
-5. Begin Phase 2: identity, authentication, refresh-token rotation, reuse detection, MFA architecture, rate limiting.
+1. Begin Phase 3: multi-tenancy (tenants, stores, memberships, roles, permissions, store access, tenant isolation tests).
+2. Slice 4b (optional, can land any time after Phase 2): rate limiter, Redis partition, EF Core migration, `appsettings.Development.json` connection string, OpenAPI registration.
 
 ## Toolchain gaps (verified at scaffold time)
 
@@ -104,7 +126,7 @@ Node.js 24.18.0 and npm 11.16.0 are installed.
 
 ## Architectural decisions
 
-- See `docs/decisions/ADR-001..ADR-008.md`.
+- See `docs/decisions/ADR-001..ADR-009.md` (ADR-009 covers Phase 2 identity and auth).
 
 ## Migrations
 
@@ -112,8 +134,8 @@ Node.js 24.18.0 and npm 11.16.0 are installed.
 
 ## Last verified commit
 
-- `b4ea603` — `fix(build): make Phase 1 scaffold actually compile on .NET 8`. 18 files, 6,059 insertions, 99 deletions. Resolves the Hellang ProblemDetails 6.5.1 predicate signature, removes the .NET 9-only `AddOpenApi`/`MapOpenApi` calls, migrates ESLint to flat config, drops `JSX.Element` return-type annotations on entry components, pins the right packages in `Directory.Packages.props`, and extends architecture-boundary tests. **Verified on .NET SDK 8.0.424: build 0/0, tests 4/4, Vite build clean.** Pushed to `AlakhiarovSalekh/SalekhPos` (remote `salekhpos`).
+- `ef291ce` — `feat(web): Phase 2 auth feature — login/register/MFA/reset, refresh-on-401, routing (Slice 5)`. 57 files, +3,929 / -86. Brings the auth feature end-to-end: service layer with refresh-on-401 single-flight, `AuthProvider` with mount-time silent refresh, 4 UI primitives, 4 auth components, 9 auth pages, router with 3 guards, 404 page, i18n in en/ka/az with a parity test, 48 unit tests + Playwright e2e smoke. Pushed to `AlakhiarovSalekh/SalekhPos` (remote `salekhpos`). **Verified:** backend `dotnet build` 0/0, `dotnet test` 23/23; web `tsc 0 errors`, `eslint 0 warnings`, `vitest 48/48`, `vite build` clean.
 
 ## Next phase
 
-- **Phase 2 — Identity / Authentication.** Argon2id, password policy, email verification, password reset, access/refresh tokens, rotation, revocation, reuse detection, MFA/TOTP architecture, rate limiting, brute-force protection.
+- **Phase 3 — Multi-tenancy.** Tenant management, store management, memberships, roles, permissions, store access, tenant isolation tests. The Phase 2 auth feature issues the `UserId` and `TenantId` that Phase 3 will scope every request by.

@@ -12,3 +12,8 @@
 - **Statuses:** `200, 201, 204, 400, 401, 403, 404, 409, 422, 429, 500`.
 
 The full OpenAPI document is generated from the controllers in `backend/SalekhPos.Api/` and published as part of the deployment artifact.
+
+## Endpoint reference
+
+- [`auth.md`](./auth.md) — every endpoint under `/api/v1/auth/` (register, verify-email, login, refresh, logout, forgot/reset/change-password, mfa setup/verify/disable). Source of truth until the OpenAPI/Swagger spec lands (deferred Slice 4b).
+
