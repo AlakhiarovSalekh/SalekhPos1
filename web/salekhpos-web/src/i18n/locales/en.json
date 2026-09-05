@@ -17,7 +17,9 @@
     "search": "Search",
     "actions": "Actions",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "continue": "Continue",
+    "unknown": "Unknown"
   },
   "shell": {
     "header": {
@@ -62,5 +64,159 @@
     "error": "Could not load data.",
     "offline": "You are offline.",
     "permissionDenied": "You do not have permission to view this."
+  },
+  "auth": {
+    "layout": {
+      "appName": "SalekhPos",
+      "tagline": "Multi-tenant retail Point-of-Sale"
+    },
+    "login": {
+      "title": "Sign in",
+      "subtitle": "Welcome back. Please enter your details.",
+      "email": {
+        "label": "Email",
+        "placeholder": "you@example.com"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Your password"
+      },
+      "submit": "Sign in",
+      "noAccount": "No account yet?",
+      "registerLink": "Create one",
+      "forgotLink": "Forgot password?",
+      "returningNotice": "Your password has been reset. Please sign in."
+    },
+    "register": {
+      "title": "Create your business account",
+      "subtitle": "Start managing your retail operations in minutes.",
+      "fields": {
+        "email": { "label": "Email", "placeholder": "you@example.com" },
+        "fullName": { "label": "Full name", "placeholder": "Your full name" },
+        "tenantName": { "label": "Business name", "placeholder": "Acme Retail" },
+        "tenantSlug": {
+          "label": "Business URL",
+          "placeholder": "acme-retail",
+          "hint": "Lowercase letters, digits and dashes. This becomes part of your business URL."
+        },
+        "password": { "label": "Password", "placeholder": "At least 12 characters" },
+        "confirmPassword": { "label": "Confirm password", "placeholder": "Repeat your password" }
+      },
+      "submit": "Create account",
+      "haveAccount": "Already have an account?",
+      "loginLink": "Sign in",
+      "successTitle": "Check your inbox",
+      "successBody": "We've sent a verification link to your email. Click it to activate your account."
+    },
+    "verifyEmail": {
+      "title": "Verifying your email",
+      "successBody": "Your email is verified. You can now sign in.",
+      "errorBody": "The verification link is invalid or has expired."
+    },
+    "forgotPassword": {
+      "title": "Reset your password",
+      "body": "Enter your email and we'll send you a reset link if the account exists.",
+      "email": { "label": "Email", "placeholder": "you@example.com" },
+      "submit": "Send reset link",
+      "successTitle": "Check your inbox",
+      "successBody": "If an account exists for that email, we've sent a password reset link. The link expires in 30 minutes.",
+      "backToLogin": "Back to sign in"
+    },
+    "resetPassword": {
+      "title": "Set a new password",
+      "fields": {
+        "newPassword": { "label": "New password", "placeholder": "At least 12 characters" },
+        "confirmPassword": { "label": "Confirm new password", "placeholder": "Repeat your new password" }
+      },
+      "submit": "Update password",
+      "successTitle": "Password updated",
+      "successBody": "Your password has been reset. Please sign in with your new password."
+    },
+    "mfa": {
+      "setup": {
+        "title": "Set up two-factor authentication",
+        "body": "Add this secret to your authenticator app (Google Authenticator, 1Password, Authy, …) or paste the provisioning URI.",
+        "secretLabel": "Secret (manual entry)",
+        "provisioningUriLabel": "Provisioning URI",
+        "recoveryCodesLabel": "Recovery codes",
+        "recoveryCodesWarning": "These codes are shown only once. Save them in a safe place — each one can be used once if you lose your device.",
+        "printButton": "Print or save this page"
+      },
+      "verify": {
+        "title": "Two-factor authentication",
+        "body": "Open your authenticator app and enter the 6-digit code.",
+        "code": { "label": "Authentication code", "placeholder": "123456" },
+        "submit": "Verify"
+      }
+    },
+    "changePassword": {
+      "title": "Change your password",
+      "fields": {
+        "currentPassword": { "label": "Current password", "placeholder": "Your current password" },
+        "newPassword": { "label": "New password", "placeholder": "At least 12 characters" },
+        "confirmNewPassword": { "label": "Confirm new password", "placeholder": "Repeat your new password" }
+      },
+      "submit": "Update password",
+      "successTitle": "Password updated",
+      "successBody": "Your password has been changed. Other sessions have been signed out."
+    },
+    "account": {
+      "title": "Your account",
+      "subtitle": "Signed in as an authenticated user.",
+      "fields": {
+        "userId": { "label": "User ID" },
+        "tenantId": { "label": "Business ID" },
+        "role": { "label": "Role" },
+        "tokenVersion": { "label": "Token version" }
+      },
+      "actions": {
+        "changePassword": "Change password",
+        "setupMfa": "Set up two-factor authentication",
+        "signOut": "Sign out"
+      }
+    },
+    "errors": {
+      "invalidCredentials": "Invalid email or password.",
+      "accountLocked": "Account locked until {{until}}.",
+      "emailNotVerified": "Please verify your email before signing in.",
+      "rateLimited": "Too many attempts. Try again in {{seconds}} seconds.",
+      "tokenReplay": "This link has expired or already been used.",
+      "network": "Cannot reach the server. Please check your connection.",
+      "generic": "Something went wrong. Please try again."
+    },
+    "actions": {
+      "signOut": "Sign out",
+      "copy": "Copy",
+      "copied": "Copied!",
+      "show": "Show",
+      "hide": "Hide",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password"
+    }
+  },
+  "validation": {
+    "required": "This field is required.",
+    "email": "Enter a valid email address.",
+    "minLength": "Must be at least 12 characters.",
+    "passwordMismatch": "Passwords do not match.",
+    "password": {
+      "minLength": "Password must be at least 12 characters.",
+      "hints": "Use at least 12 characters, with upper and lower case, a digit, and a symbol.",
+      "upper": "Add an uppercase letter",
+      "lower": "Add a lowercase letter",
+      "digit": "Add a digit",
+      "symbol": "Add a symbol"
+    },
+    "tenantSlug": {
+      "format": "Use 3–40 lowercase letters, digits, or dashes; must start and end with a letter or digit."
+    },
+    "mfa": {
+      "format": "Enter the 6-digit code from your authenticator app."
+    }
+  },
+  "notFound": {
+    "title": "Page not found",
+    "body": "The page you're looking for doesn't exist or has moved.",
+    "homeLink": "Go to your account"
   }
 }

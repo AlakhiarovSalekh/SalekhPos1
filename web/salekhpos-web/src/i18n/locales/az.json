@@ -17,7 +17,9 @@
     "search": "Axtar",
     "actions": "Əməliyyatlar",
     "yes": "Bəli",
-    "no": "Xeyr"
+    "no": "Xeyr",
+    "continue": "Davam et",
+    "unknown": "Naməlum"
   },
   "shell": {
     "header": {
@@ -62,5 +64,159 @@
     "error": "Məlumat yüklənə bilmədi.",
     "offline": "Siz oflaynsınız.",
     "permissionDenied": "Bu səhifəyə baxmaq icazəniz yoxdur."
+  },
+  "auth": {
+    "layout": {
+      "appName": "SalekhPos",
+      "tagline": "Çoxmənzilli pərakəndə satış platforması"
+    },
+    "login": {
+      "title": "Daxil ol",
+      "subtitle": "Xoş gəldiniz. Zəhmət olmasa məlumatlarınızı daxil edin.",
+      "email": {
+        "label": "E-poçt",
+        "placeholder": "you@example.com"
+      },
+      "password": {
+        "label": "Şifrə",
+        "placeholder": "Şifrəniz"
+      },
+      "submit": "Daxil ol",
+      "noAccount": "Hesabınız yoxdur?",
+      "registerLink": "Yaradın",
+      "forgotLink": "Şifrəni unutmusunuz?",
+      "returningNotice": "Şifrəniz sıfırlandı. Zəhmət olmasa daxil olun."
+    },
+    "register": {
+      "title": "Biznes hesabı yaradın",
+      "subtitle": "Pərakəndə əməliyyatlarınızı dəqiqələr ərzində idarə etməyə başlayın.",
+      "fields": {
+        "email": { "label": "E-poçt", "placeholder": "you@example.com" },
+        "fullName": { "label": "Tam ad", "placeholder": "Tam adınız" },
+        "tenantName": { "label": "Biznesin adı", "placeholder": "Acme Retail" },
+        "tenantSlug": {
+          "label": "Biznes URL",
+          "placeholder": "acme-retail",
+          "hint": "Kiçik latın hərfləri, rəqəmlər və defislər. Bu, biznes URL-nizin bir hissəsi olacaq."
+        },
+        "password": { "label": "Şifrə", "placeholder": "Ən azı 12 simvol" },
+        "confirmPassword": { "label": "Şifrəni təsdiqlə", "placeholder": "Şifrəni təkrarlayın" }
+      },
+      "submit": "Hesab yarat",
+      "haveAccount": "Artıq hesabınız var?",
+      "loginLink": "Daxil ol",
+      "successTitle": "E-poçtunuzu yoxlayın",
+      "successBody": "Təsdiq linkini e-poçt ünvanınıza göndərdik. Hesabınızı aktivləşdirmək üçün linkə klikləyin."
+    },
+    "verifyEmail": {
+      "title": "E-poçtun təsdiqlənməsi",
+      "successBody": "E-poçtunuz təsdiqləndi. İndi daxil ola bilərsiniz.",
+      "errorBody": "Təsdiq linki yanlışdır və ya vaxtı keçib."
+    },
+    "forgotPassword": {
+      "title": "Şifrəni sıfırlayın",
+      "body": "E-poçtunuzu daxil edin; əgər hesab mövcuddursa, sıfırlama linki göndərəcəyik.",
+      "email": { "label": "E-poçt", "placeholder": "you@example.com" },
+      "submit": "Sıfırlama linkini göndər",
+      "successTitle": "E-poçtunuzu yoxlayın",
+      "successBody": "Əgər bu e-poçtla hesab mövcuddursa, şifrə sıfırlama linki göndərdik. Link 30 dəqiqə ərzində etibarlıdır.",
+      "backToLogin": "Daxil olma səhifəsinə qayıt"
+    },
+    "resetPassword": {
+      "title": "Yeni şifrə təyin edin",
+      "fields": {
+        "newPassword": { "label": "Yeni şifrə", "placeholder": "Ən azı 12 simvol" },
+        "confirmPassword": { "label": "Yeni şifrəni təsdiqlə", "placeholder": "Yeni şifrəni təkrarlayın" }
+      },
+      "submit": "Şifrəni yenilə",
+      "successTitle": "Şifrə yeniləndi",
+      "successBody": "Şifrəniz sıfırlandı. Zəhmət olmasa yeni şifrə ilə daxil olun."
+    },
+    "mfa": {
+      "setup": {
+        "title": "İki faktorlu autentifikasiyanı qurun",
+        "body": "Bu sirri autentifikator tətbiqinizə əlavə edin (Google Authenticator, 1Password, Authy, …) və ya provisioning URI-ni yapışdırın.",
+        "secretLabel": "Sirr (əl ilə daxil etmə)",
+        "provisioningUriLabel": "Provisioning URI",
+        "recoveryCodesLabel": "Bərpa kodları",
+        "recoveryCodesWarning": "Bu kodlar yalnız bir dəfə göstərilir. Onları təhlükəsiz yerdə saxlayın — cihazınızı itirsəniz, hər biri bir dəfə istifadə oluna bilər.",
+        "printButton": "Bu səhifəni çap edin və ya saxlayın"
+      },
+      "verify": {
+        "title": "İki faktorlu autentifikasiya",
+        "body": "Autentifikator tətbiqinizi açın və 6 rəqəmli kodu daxil edin.",
+        "code": { "label": "Autentifikasiya kodu", "placeholder": "123456" },
+        "submit": "Təsdiqlə"
+      }
+    },
+    "changePassword": {
+      "title": "Şifrəni dəyişdirin",
+      "fields": {
+        "currentPassword": { "label": "Cari şifrə", "placeholder": "Cari şifrəniz" },
+        "newPassword": { "label": "Yeni şifrə", "placeholder": "Ən azı 12 simvol" },
+        "confirmNewPassword": { "label": "Yeni şifrəni təsdiqlə", "placeholder": "Yeni şifrəni təkrarlayın" }
+      },
+      "submit": "Şifrəni yenilə",
+      "successTitle": "Şifrə yeniləndi",
+      "successBody": "Şifrəniz dəyişdirildi. Digər sessiyalar sistemdən çıxarıldı."
+    },
+    "account": {
+      "title": "Hesabınız",
+      "subtitle": "Autentifikasiya edilmiş istifadəçi kimi daxil olmusunuz.",
+      "fields": {
+        "userId": { "label": "İstifadəçi ID" },
+        "tenantId": { "label": "Biznes ID" },
+        "role": { "label": "Rol" },
+        "tokenVersion": { "label": "Token versiyası" }
+      },
+      "actions": {
+        "changePassword": "Şifrəni dəyişdir",
+        "setupMfa": "İki faktorlu autentifikasiyanı qur",
+        "signOut": "Çıxış"
+      }
+    },
+    "errors": {
+      "invalidCredentials": "Yanlış e-poçt və ya şifrə.",
+      "accountLocked": "Hesab {{until}}-ə qədər bloklanıb.",
+      "emailNotVerified": "Zəhmət olmasa, daxil olmazdan əvvəl e-poçtunuzu təsdiqləyin.",
+      "rateLimited": "Çoxlu cəhdlər. {{seconds}} saniyə sonra yenidən cəhd edin.",
+      "tokenReplay": "Bu linkin vaxtı keçib və ya artıq istifadə olunub.",
+      "network": "Serverə qoşulmaq mümkün deyil. İnternetinizi yoxlayın.",
+      "generic": "Xəta baş verdi. Zəhmət olmasa yenidən cəhd edin."
+    },
+    "actions": {
+      "signOut": "Çıxış",
+      "copy": "Kopyala",
+      "copied": "Kopyalandı!",
+      "show": "Göstər",
+      "hide": "Gizlət",
+      "showPassword": "Şifrəni göstər",
+      "hidePassword": "Şifrəni gizlət"
+    }
+  },
+  "validation": {
+    "required": "Bu xana tələb olunur.",
+    "email": "Düzgün e-poçt ünvanı daxil edin.",
+    "minLength": "Ən azı 12 simvol olmalıdır.",
+    "passwordMismatch": "Şifrələr uyğun gəlmir.",
+    "password": {
+      "minLength": "Şifrə ən azı 12 simvol olmalıdır.",
+      "hints": "Ən azı 12 simvol istifadə edin: böyük və kiçik hərf, rəqəm və simvol.",
+      "upper": "Böyük hərf əlavə edin",
+      "lower": "Kiçik hərf əlavə edin",
+      "digit": "Rəqəm əlavə edin",
+      "symbol": "Simvol əlavə edin"
+    },
+    "tenantSlug": {
+      "format": "3–40 kiçik latın hərfi, rəqəm və ya defis istifadə edin; hərf və ya rəqəmlə başlayıb bitməlidir."
+    },
+    "mfa": {
+      "format": "Autentifikatorun 6 rəqəmli kodunu daxil edin."
+    }
+  },
+  "notFound": {
+    "title": "Səhifə tapılmadı",
+    "body": "Axtardığınız səhifə mövcud deyil və ya köçürülüb.",
+    "homeLink": "Hesabınıza keçin"
   }
 }

@@ -1,12 +1,19 @@
 /**
  * SalekhPos web — top-level App component.
  *
- * In the foundation scaffold this renders the BusinessShell placeholder.
- * Real routes (auth, dashboard, products, inventory, ...) are added in
- * later phases.
+ * Wires the top-level router. Providers live in AppProviders so
+ * the React tree looks like:
+ *   <AppProviders>
+ *     <App>      ← Router
+ *     </App>
+ *   </AppProviders>
+ *
+ * AppProviders owns QueryClient + AuthProvider. The router is
+ * rendered here (not in AppProviders) so the router can own
+ * its own context without conflicting with the providers' tree.
  */
-import { BusinessShell } from '@/components/layout/BusinessShell';
+import { Router } from '@/routes/Router';
 
 export default function App() {
-  return <BusinessShell />;
+  return <Router />;
 }
