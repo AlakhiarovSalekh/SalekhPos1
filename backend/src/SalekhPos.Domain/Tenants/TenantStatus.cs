@@ -4,14 +4,20 @@
 namespace SalekhPos.Domain.Tenants;
 
 /// <summary>
-/// Lifecycle state of a tenant. The Phase 2 stub only honours
-/// <see cref="Active"/>; full onboarding/suspension lives in Phase 16.
+/// Lifecycle status of a tenant-scoped entity (Tenant, Store, Membership).
+/// Persisted as a string column in Postgres so the value can grow without
+/// a migration. A tenant (or store, or membership) that is <see cref="Suspended"/>
+/// cannot be used for new operations but its historical data is retained
+/// for audit and reporting.
 /// </summary>
 public enum TenantStatus
 {
-    /// <summary>Tenant is fully active.</summary>
+    /// <summary>The entity is active and accepts new operations.</summary>
     Active = 0,
 
-    /// <summary>Tenant is temporarily suspended (billing, abuse, ...).</summary>
+    /// <summary>
+    /// The entity is suspended. Logins fail with 423, mutations fail with
+    /// 423, reads still succeed so an owner can see why they were suspended.
+    /// </summary>
     Suspended = 1,
 }
