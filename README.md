@@ -1,4 +1,4 @@
-# SalekhPos — Earlier Platform Implementation
+# SalekhPos Legacy Implementation — Multi-Tenant Retail POS Architecture
 
 [![.NET](https://img.shields.io/badge/.NET-Backend-512BD4?logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
 [![React](https://img.shields.io/badge/React-Web-61DAFB?logo=react&logoColor=black)](https://react.dev/)
