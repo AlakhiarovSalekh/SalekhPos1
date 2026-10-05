@@ -63,6 +63,12 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ➡️ **[SalekhPos](https://github.com/AlakhiarovSalekh/SalekhPos)** — current public repository.
 
+## More Projects by Salekh
+
+- [SalekhPos](https://github.com/AlakhiarovSalekh/SalekhPos) — current security-focused retail/POS platform.
+- [UPos Web](https://github.com/AlakhiarovSalekh/UPos-Web) — Astro/TypeScript commerce website.
+- [Inventory Management Desktop App](https://github.com/AlakhiarovSalekh/Inventory-App) — Python/PyQt inventory application.
+
 ## Author
 
 **Salekh Alakhiarov** · [GitHub](https://github.com/AlakhiarovSalekh)
