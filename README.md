@@ -63,6 +63,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ➡️ **[SalekhPos](https://github.com/AlakhiarovSalekh/SalekhPos)** — current public repository.
 
+> If this project is useful to you, consider starring the repository. It helps you find it again and helps other developers discover the project.
+
 ## More Projects by Salekh
 
 - [SalekhPos](https://github.com/AlakhiarovSalekh/SalekhPos) — current security-focused retail/POS platform.
